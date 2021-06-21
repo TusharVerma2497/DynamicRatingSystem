@@ -1,0 +1,23 @@
+{% extends 'home/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class='container pt-5' >
+    <div class="row ">
+        <div class='col-md-3'></div>
+        <div class='col-md-6 jumbotron'>
+        <form method='POST'class="form-group text-center ">
+            <label for="signup-form" class="display-4">SIGNUP</label>
+            {%csrf_token%}
+            {{form|crispy}}
+            <button class='btn btn-info btn-block' style="position:relative;top:8%" type='submit'>Register</button>
+        </form>
+        {%if next %}
+        <small class='text-muted'>Already Have An Account??<a class='' href="{% url 'login' %}?next={{next}}">Login</a></small>
+        {% else %}
+        <small class='text-muted'>Already Have An Account??<a class='' href="{% url 'login' %}">Login</a></small>
+        {% endif %}
+        </div>
+        <div class='col-md-3'></div>
+    </div>
+</div>
+{% endblock content%}

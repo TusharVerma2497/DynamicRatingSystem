@@ -1,0 +1,56 @@
+{% extends 'home/base.html' %}
+{% block content %}
+
+<div >
+  <h1 class=' text-center'>{{title|capfirst}}</h1><br>
+  {% if user.is_authenticated %}
+<form action="{% url 'rate' %}" method='post' onsubmit="addEpoch()">
+  {% csrf_token %}
+  <label for="vol">Rate(between 0.1 and 10):</label>
+  <input type="range" id="rate" name="rate" min="0.1" max="10"  step="0.1" oninput="updateRangeText()">
+  <span class="range-value">5</span>
+  <input type='hidden' id='movieId' name='movieId' value='{{movie.getID}}'>
+  <input type='hidden' id='epoch' name='epoch' value=''>
+  <input type="submit">
+</form>
+{% else %}
+<h6><a href="{% url 'login' %}?next={{request.path}}">LOGIN</a> TO rate</h6>
+{% endif %}
+<script>
+  function addEpoch(){
+    $('#epoch').attr('value',(Date.now()/1000));
+  }
+</script>
+
+
+  <div class="accordion" class='container-md' id="accordionExample">
+  {% for a ,c in movie.items%}
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" aria-expanded="false" data-target="#collapse{{a|cut:' '}}"  aria-controls="collapse{{a|cut:' '}}">
+            {{a|capfirst}}
+          </button>
+        </h2>
+      </div>
+  
+      <div id="collapse{{a|cut:' '}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+          {{c}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {% endfor%}
+  </div>
+</div> 
+
+<script>
+  function updateRangeText(value){
+    val=document.getElementById('rate').value;
+    document.getElementsByClassName('range-value')[0].innerHTML = val;
+  }
+
+
+</script>
+{% endblock content %}

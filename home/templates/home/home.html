@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% block content %}
+<div class='container-fluid-md row' >
+    <h1 class='col-md text-center display-3'>HOMEPAGE</h1>
+</div> 
+<div class='container pt-5' >
+    <div class="row ">
+        <div class='col-md-3'></div>
+            <form action="{% url 'movie-result' %}" class="form-group text-center col-md-6 jumbotron" autocomplete="off">
+                <label for="moviesSearch" class="display-4">SEARCH</label>
+                <input type="text" class="form-control text-center" name="keyword" aria-describedby="SearchHelp" placeholder="Enter Movie/Tv-Series">
+                <small id="SearchHelp" class="form-text text-muted">Example - Inception </small>
+                <button type="submit" class="btn btn-info btn-block" style="position:relative;top:8%">Submit</button>
+            </form>
+        <div class='col-md-3'> </div>
+    </div>
+</div>
+{% endblock content%}

@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% load crispy_forms_tags %}
+{% load dict_keys %}
+{% block content %}
+<div class='container pt-5' >
+    <div class="row ">
+        <div class='col-md-3'></div>
+        <div class='col-md-6 jumbotron'>
+        <form method='POST'class="form-group text-center ">
+            <label for="login-form" class="display-4">LOGIN</label>
+            {%csrf_token%}
+            {{form.username|as_crispy_field}}
+            <!-- <input type="text" name="username" autofocus autocapitalize="none" autocomplete="off" placeholder="Enter Username" maxlength="150" class="textinput textInput form-control text-center" required id="id_username"> -->
+            <!-- <small id="UsernamehHelp" class="form-text text-muted">Example - tushar2497 </small> -->
+            {{form.password|as_crispy_field}}
+            <!-- <input type="password" name="password" autocomplete="current-password" class="textinput textInput form-control text-center" placeholder="Enter Password" required id="id_password"> -->
+            <!-- <small id="PasswordhHelp" class="form-text text-muted">Password is case-sensitive</small> -->
+            <button class='btn btn-info btn-block' style="position:relative;top:8%" type='submit'>Login</button>
+        </form>
+        <div class="row">
+        <div class="col-6">
+        {%if next %}
+        <small class='text-muted'>Need An Account??<a class='' href="{% url 'user-register' %}?next={{next}}">Sign-Up</a></small>
+        {% else %}
+        <small class='text-muted'>Need An Account??<a class='' href="{% url 'user-register' %}">Sign-Up</a></small>
+        {% endif %}
+        </div>
+        <div class="col-6 text-right">
+        <small style="text-align: right;"><a href="#">Forgot Password??</a></small>
+        </div>
+    </div>
+        </div>
+        <div class='col-md-3'></div>
+    </div>
+</div>
+{% endblock content%}

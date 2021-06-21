@@ -1,0 +1,10 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block graph %}
+<img  class="mx-auto d-block jumbotron" style='background-color:#fafafa' src="{%static 'poster.svg'%}">
+<script>
+    d=document.getElementsByTagName('img')[0];
+    d.width=window.innerWidth-20;
+</script>
+
+{% endblock graph %}

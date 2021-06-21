@@ -1,0 +1,56 @@
+{% extends 'home/base.html'%}
+{% block content %}
+<div class='container-fluid-md row' >
+    <h1 class='col-md text-center display-4'>{{title|upper}}</h1>
+</div> 
+<!-- <div class='container-fluid-md row' >
+    <ul style="list-style-type:square;">
+        {% for b in a %}
+            <li>
+                <a href="/result/{{b.getID}}">{{b.title}} - {{b.year}}</a><br>
+                {% ifnotequal b|get_item:"full-size cover url" "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/32x44/film-3119741174.png"%}
+                    
+                    <img src='{{b|get_item:"full-size cover url"}}' height="300" width="200">
+                {% endifnotequal %}
+                
+                
+            </li>
+          {% endfor %}
+    </ul>
+</div> -->
+<div class='container pt-2'>
+            <div class="row">
+                {% for b in a %}
+                <div class=" col-md-6 pt-4 col-sm-12 col-lg-4">
+                  <div class="card" >
+                    <div class="card-body"style="padding:6px;">
+                        <div class="row" style="margin:2%;padding:2%;background:#e9ecef">
+                            <img style='height:auto; max-width:100%;' class="img-thumbnail col-2 img-fluid pt-2" src='{{b|get_item:"cover url"}}' height="44" width="35">
+                            <div class=" col-9">
+                            <h6 >{{b.title}}</h6>
+                            {% ifnotequal b|get_item:"kind" "movie" %}
+                            <p style="font-size: small;">{{b|get_item:"episode of"}}</p>
+                            {% endifnotequal %}
+                            </div>
+                        </div>
+                        <div class='container'>
+                        <div class=" row">
+                            <p class="col-6 card-text text-center" style="font-size: small;">Year : {{b.year}}</p>
+                            <p class="col-6 card-text text-center" style="font-size: small;">Kind : {{b|get_item:"kind"}}</p>
+                            {% ifnotequal b|get_item:"kind" "movie" %}
+                            <p class="col-6 card-text text-center" style="font-size: small;">Season : {{b|get_item:"season"}}</p>
+                            <p class="col-6 card-text text-center" style="font-size: small;">Episode : {{b|get_item:"episode"}}</p>
+                            {% endifnotequal %}
+                        </div>
+                        <!-- {% url 'movie-detail' b.getID as the_url %}
+                        <a href="{{ the_url }}">IRate And More{{ the_url }}</a> -->
+                        <a href="{% url 'movie-detail' b.getID %}" class="btn btn-outline-info btn-block">Rate & More...</a>
+                        <!-- <a href="/result/{{b.getID}}" class="btn btn-outline-info btn-block">Rate & More...</a> -->
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+{% endblock content%}

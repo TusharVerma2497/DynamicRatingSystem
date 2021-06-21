@@ -1,0 +1,96 @@
+{% extends 'home/base.html'%}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'home/rotating-card.css' %}">
+<div class="container pt-2">
+    <div class="row">
+        <div class="col-md-8">
+            <canvas id="myChart" width="400" height="300"></canvas>
+        </div>
+        <div class="card-container manual-flip col-md-4 pt-5"style="position: -webkit-sticky;position:sticky;top:10%;">
+            <div class="card" id="MovieCard" style="display: none;" >
+                                <div class="front" style="background-color: #fafafa;  height:450px">
+                                    <div>
+                                        <img  style="height:17rem"class="card-img-top" id="MovieCover" src='#'>
+                                    </div>
+                                    <div class="content">
+                                        <div class="main">
+                                            <p id="MovieTitle" class="card-title" style="padding: 5px; white-space: nowrap;overflow:hidden;"></p>
+                                            <div class='container list-group-item'>
+                                                <h5 id="MovieRank" class="card-text"></h5>
+                                                <label for="MovieRating" id="MovieRatingLabel"></label>
+                                                <input type="range" class="custom-range" min="0.1" max="10" step="0.1" id="MovieRating">
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <button class="btn btn-simple" onclick="rotateCard(this)">
+                                                <i class="fa fa-mail-forward"></i> More Options
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div> <!-- end front panel -->
+                                <div class="back" style="background-color: #fafafa;">
+                                    <div class="header">
+                                        <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                                    </div>
+                                    <div class="content">
+                                        <div class="main">
+                                           <div id="collapseExample">
+                                        `		<div class="radio">
+                                                    <label class="list-group-item"><input type="radio" onclick="" id="Default" name="radiOption" checked>  Default</label>   
+                                                </div>
+                                                <div class="radio">
+                                                    <label class="list-group-item"><input type="radio" onclick="DRSOption()" id="DRS" name="radiOption">  DRS</label>                    
+                                                </div>
+                                                <div class="radio">
+                                                    <label class="list-group-item"><input type="radio" onclick="ReplaceOption()"id="Replace" name="radiOption">  Replace
+                                                        <p id="ReplaceMovieSelected" class="text-muted"></p>
+                                                        <button id="ReplaceButton" class="btn btn-outline-info btn" style="display:none;" onclick="ReplaceOptionSubmit()">Replace</button>
+                                                    </label>    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <div class="footer">
+                                        <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+                                            <i class="fa fa-reply"></i> Back
+                                        </button>
+                                    </div>
+                                </div> <!-- end back panel -->
+                            </div> <!-- end card -->
+                            </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $().ready(function(){
+        $('[rel="tooltip"]').tooltip();
+
+        $('a.scroll-down').click(function(e){
+            e.preventDefault();
+            scroll_target = $(this).data('href');
+             $('html, body').animate({
+                 scrollTop: $(scroll_target).offset().top - 60
+             }, 1000);
+        });
+
+    });
+
+    function rotateCard(btn){
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if($card.hasClass('hover')){
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
+    }
+
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<!-- <script src="https://chartjs-plugin-datalabels.netlify.com/chartjs-plugin-datalabels.js"></script> -->
+<script src="{% static 'home/pluginMinify.js' %}"></script>
+<script>var obj={{objs|safe}};</script> <!--this is conversion from json format to javascript -->
+<script src="{% static 'home/ratingGraph.js' %}"></script>
+{% endblock content%}
+

@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% load static%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container pt-4"> 
+  <div class="row">
+<div class="content-section col-md-9">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+      <div class="media-body">
+        <h2 class="account-heading">{{user.username}}</h2>
+        <p class="text-secondary">{{user.email}}</p>
+      </div>
+    </div>
+    <form method='POST' enctype='multipart/form-data'>
+      {%csrf_token%}
+      <fieldset class='form-group'>
+          <legend class='border-bottom mb-4'>Profile Info</legend>
+          <div class="container row">
+            <div class="col-md-6">
+              {{ u_form|crispy }}
+            </div>
+            <div class="col-md-6">
+              {{ p_form|crispy }}
+            </div>
+        </div>
+          <input type='hidden' name='old-image' value='{{user.profile.image.url}}'>
+          <!-- <input type='hidden' name='type' value='profile'> -->
+      </fieldset>
+      <div class='form-group'>
+          <button class='btn btn-info btn-block' type='submit'>Update</button>
+      </div>
+  </form>
+  </div>
+  <div class="col-md-3" style="width: 120%;">
+    <!-- <a href="{% url 'rate' %}">Ratings</a> -->
+    <div class="card" style="width: 100%;">
+    <img class="card-img-top" src="{% static 'UnOfficialLogo.png' %}" alt="Card image cap">
+        <!-- <div class="card"> -->
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center"><a style="color: black;" href="{% url 'change-password' %}" class="card-link">Change Password</a></li>
+        <li class="list-group-item text-center"><a style="color: black;" href="{% url 'rate'%}" class="card-link">My Ratings</a></li>
+        <li class="list-group-item text-center"><a style="color: black;" href="#" class="card-link">Delete Account</a></li>
+      </ul>
+      <!-- <div class="card-body" style="background-color: #5f788a;"></div> -->
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container pt-4"> 
+  <div class="content-section">
+    <form method='POST' action="{% url 'importRatings'%}" enctype='multipart/form-data' onsubmit="return validate()">
+      {%csrf_token%}
+      <fieldset class='form-group'>
+        <legend class='border-bottom mb-4'>Upload your IMDB ratings - '.CSV' Export</legend>
+        <div class="container row">
+          <div class="col-md-6">
+            <br>
+            <label for="file-csv">ratings.csv</label>
+            <input type="file" class="form-control-file" name="file-csv" accept=".csv" />
+            <br>
+              <button class='btn btn-info btn-block' type='submit'>Submit</button>
+          </div>
+          <div class="col-md-6">
+            <h1 class="display-4">Steps to download & upload</h1><br>
+            <p>Go to <a href="https://www.imdb.com/">IMDB</a> website.</p>
+            <P>Click on your profile dropdown button at the top right corner of the screen.</P>
+            <p>Select 'Your ratings' option.</p>
+            <p>Click on the ellipsis(three dot button ⋮ ) at the top right corner of the page.</p>
+            <p>Click 'Export'</p>
+          </div>
+        <div>
+          <!-- <input type='hidden' name='type' value='csv'> -->
+      </fieldset>
+      </form>
+  </div>
+</div>
+{% endblock content%}
