@@ -8,8 +8,11 @@ if not mc.get('globalVar-writingToDb'):
     mc.set('globalVar-writingToDb', 0)
 
 if not mc.get('globalVar-m'):
-     m = movies.objects.all().values('imdb_id')
-     mc.set('globalVar-m', m)
+    try:
+        m = movies.objects.all().values('imdb_id')
+        mc.set('globalVar-m', m)
+    except Exception as e:
+        print("not yet initialized")
 
 if not mc.get('globalVar-semaphore'):
     mc.set('globalVar-semaphore', 0)

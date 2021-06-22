@@ -15,7 +15,7 @@ This project is not yet competed entirely and surely will contain bugs however y
 	now activate it
 	-> source DynamicRs/bin/activate
 4) now install all the dependencies 
-	-> pip install -r requirement.txt
+	-> pip install -r requirements.txt
 5) Now install memcache in you system
 	-> sudo pacman -S memcached
 	-> systemctl start memcached
